@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEZIIONE 1</title>
+</head>
+<style>
+    #button{
+        width: 50px!important;
+        height: 50px;
+        margin: 10px!important;
+        text-align: center;
+        font-family:'Courier New', Courier, monospace;
+        font-size: 30px!important;
+        font-weight: bolder;
+        background-color:white;
+        border-style: solid;
+        border-color: black;
+    }
+</style>
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <title>Document</title>
+    </head>
+    <body>
+        <div style="text-align: center;" class="container" id="app2">
+            <h1>Benvenuti alla pagina</h1>
+            <button class="btn btn-primary" v-on:click="cambioLezione('1')">Lezione 1</button>
+            <button class="btn btn-primary" v-on:click="cambioLezione('2')">Lezione 2</button>
+            <button class="btn btn-primary"><a style="color: white;  text-decoration: none" href="Lezione3.html">Lezione 3</a></button>
+            <div v-if="lezione === '1'">
+                <div class="container">
+                    <h1>Vue.js 1 applicazione</h1>
+                    <p>*1 V-ON ( Possiamo chiamare un evento | abbreviazione @ )</p>
+                    <p>*2 Function ( Se si vuole aggiungere un'evento basta aggiunger $event, 'esempio' )</p>
+                    <p>*3 Mounted ( è usato per scatenare l'evento dal momento in cui viene avviato il componente associato: (tag "app") all'elemto "id="app2")</p>
+                </div>
+                <h1 class="container" style="text-align: center;">--ESERCIZI DI PROVA--</h1>
+            
+                <div class="container" >
+
+                    <p style="font-size:10rem; text-align: center;">{{ counter }}</p>
+                    <div class="row" style="justify-content: center;flex-wrap: nowrap;">
+                        <button id="button" v-on:click="changeCounter('+')" :disabled='disabledMax'>+</button>
+                        <button id="button" @click="changeCounter('-')" :disabled='disabledMin'>-</button>
+                    </div>
+                    <hr>
+                    <h2>{{ limiteF() }}</h2>
+                    COMPUTED
+                    <h2>{{ limit }}</h2>
+
+                    <button class="btn btn-primary" @click="my"> MY </button>
+                    <p>{{textMy}}</p>
+                </div>
+            </div>    
+                
+            <template v-else-if="lezione === '2'">
+                <div class="container">
+                    <h1>Vue.js 2 applicazione</h1>
+                    <p>*1 disabled ( disabilita il bottone )</p>
+                    <p>*2 template ( nasconde parti di codice )</p>
+                    <p>*3 v-if v-else</p>
+                </div>
+                <h1 class="container" style="text-align: center;">--ESERCIZI DI PROVA 2--</h1>
+                <div class="container" >
+                    <h5>{{x}} - {{y}}</h5>
+                    <div v-on:mousemove="updateCordinate">
+                        <img src="https://fakeimg.pl/300/">
+                        <img v-on:mousemove.stop.prevent src="https://fakeimg.pl/300/">
+                    </div>
+                    <!--Se si vuole invece richiamare l'evento digitando spazio aggiungere .space-->
+                    <input v-on:keyup="changeText">
+                    <br>
+                    <h6>{{nome}}</h6>
+                    <input v-model="nome"> 
+                    <button @click="nome='marco'">Cambio</button>
+                </div>
+            </template>
+        </div>        
+
+    </body>
+     <script>
+    
+    var app = new Vue({
+    
+      el: '#app2',
+      data: {
+
+        counter: '10',
+        min:'0',
+        max:'10',
+        disabledMax:false,
+        disabledMin:true,
+        lezione:'0',
+        x: 0,
+        y:0,
+        textMy: 0,
+        nome: ''
+        
+      },
+      
+      mounted: function(){
+
+        this.counter = 5
+        
+      },
+
+      computed: {
+
+        limit :function(){
+            console.log('--> COMPUTED');
+            if(this.counter <= 0){
+                return 'Minore'
+              }
+              else return 'Maggiore'
+
+        }
+      },
+
+      watch : {
+            counter :
+                function(value){
+               
+                    if(value == 3){
+                        this.textMy = "Valore 3 serve per osservare la variabile"
+                    }
+
+                }
+      },
+
+      methods: {
+          changeCounter(direction){
+            if(direction === '+' ){
+                if(this.counter < this.max){
+                this.counter++;
+                }
+            
+            }
+            else if(this.counter > this.min){
+                
+                    this.counter--
+            };
+
+            if(this.counter >= this.max){
+                this.disabledMin = false;
+                this.disabledMax = true;
+            }
+            else if(this.counter <= this.min){
+                    this.disabledMin = true;
+                    this.disabledMax = false;
+            }
+            else {
+                this.disabledMin = false;
+                this.disabledMax = false;
+            }
+          },
+          cambioLezione(lezioneProx){
+
+            switch (lezioneProx){
+
+                case '1': this.lezione = '1';break
+                case '2': this.lezione = '2';break
+            }
+            
+            
+          },
+
+          updateCordinate(){
+
+            this.x = event.clientX;
+            this.y = event.clientY;
+
+          },
+
+          changeText(){
+              alert("se si vuole catturare un evento")
+          },
+
+
+          limiteF(){
+              console.log('FUNCTION');
+              if(this.counter <= 0){
+                return 'Minore'
+              }
+              else return 'Maggiore'
+          },
+          my(){
+              this.textMy = Math.random();
+          }
+      }
+    })
+        </script>
+    
+        
+    </html></body>
+</html>

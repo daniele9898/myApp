@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Vue.js prima applicazione</h1>
+        <p>*1 v-once ( blocca la reattività )</p>
+        <p>*2 v-bind ( ti permette di agganciare una variabile e rendere un elemento reattivo )</p>
+        <p>*3 Methods ( Puoi inserire i tuoi metodi "le classice function" )</p>
+        <p>*4 v-html ( da possibilità di trasformare cio che è all'interno di una variabile in html )</p>
+
+    </div>
+    <h1 class="container" style="text-align: center;">--ESERCIZI DI PROVA--</h1>
+   <div class="container" id="applicazione_isjeady">
+
+    <h1>{{message}}</h1>
+    <p>{{newMessage}}</p>
+    <p>{{car}}</p>
+    <!--Punto 1) e 2)-->
+    <img v-once v-bind:src="linkImg">
+    <img :src="linkImg" title="lasciando i 2 punti è sottinteso il v-bind">
+    <button @click="linkImg ='https://miro.medium.com/max/256/0*9TDJnsZDg-S8Pa_F.png'">Clicca</button>
+
+    <button @click="cambioImg">Clicca</button>
+
+    <div v-html="myHtml"></div>
+   </div>
+
+   
+</body>
+ <script>
+
+var app = new Vue({
+
+  el: '#applicazione_isjeady',
+  data: {
+      message: 'Ciao Mondo',
+      newMessage: [ 'Secondo messaggio','terzo messaggio' ],
+      car: {
+          colore:"red",
+          tipo:"audi"
+      },
+      linkImg: 'https://assets.codepen.io/t-1003/internal/avatars/teams/default.png?fit=crop&format=auto&height=256&version=1513627136&width=256',
+      myHtml: '<b>La frase diventa grasseto, grazie a v-html</b>'
+  },
+  methods: {
+      cambioImg(){
+          this.linkImg = 'https://miro.medium.com/max/256/0*9TDJnsZDg-S8Pa_F.png'
+      }
+  },
+
+})
+    </script>
+
+    
+</html>
